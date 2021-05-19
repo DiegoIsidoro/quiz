@@ -1,0 +1,397 @@
+<html>
+
+<head></head>
+
+<body>
+    <?php
+         /**
+          * Template Name: Full Width Template
+          * Template Post Type: post, page
+          *
+          * @package WordPress
+          * @subpackage Twenty_Twenty
+          * @since Twenty Twenty 1.0 
+         
+         
+         	get_template_part( 'singular' ); */?>
+        <!-- wp:html -->
+        <meta name="viewport" content="width=device-width" />
+        <script src="https://unpkg.com/jquery"></script>
+        <script src="https://surveyjs.azureedge.net/1.8.6/survey.jquery.js"></script>
+        <link href="https://surveyjs.azureedge.net/1.8.6/modern.css" type="text/css" rel="stylesheet">
+        </link>
+        <div id="surveyElement" style="display:inline-block;width:100%;"></div>
+        <div id="surveyResult" style="display: none;"></div>
+        <div id="container" style="display: none;"></div>
+        <br />
+        <br />
+        <span id="spnLink">Imprima o seu resultado clicando <a id="printLink" onclick="window.print()"> aqui!</a></span>
+        <br />
+        <br />
+        <div id="ytplayer" style="display: none;"></div>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/variable-pie.js"></script>
+        <script>
+            Survey
+                .StylesManager
+                .applyTheme("modern");
+
+            var json = {
+                title: "A Roda da Comunicação Inteligente.",
+                pages: [{
+                    title: "Video de explicação",
+                    questions: [{
+                        type: "radiogroup",
+                        name: "",
+                        title: "",
+                        hasOther: false,
+                        isRequired: false,
+                        colCount: 10,
+                        choices: []
+                    }]
+                }, {
+                    title: "Qual o grau de satisfação da sua COMUNICAÇÃO com Deus, de 0 a 10?",
+                    questions: [{
+                        type: "radiogroup",
+                        name: "optDeus",
+                        title: "Deus",
+                        hasOther: false,
+                        isRequired: true,
+                        colCount: 10,
+                        choices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                    }]
+                }, {
+                    title: "Qual o grau de satisfação da sua COMUNICAÇÃO com você mesmo, de 0 a 10?",
+                    questions: [{
+                        type: "radiogroup",
+                        name: "optVoce",
+                        title: "Você",
+                        hasOther: false,
+                        isRequired: true,
+                        colCount: 10,
+                        choices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                    }]
+                }, {
+                    title: " Qual o grau de satisfação da sua COMUNICAÇÃO com seus Pais, de 0 a 10? (caso não tenha mais os pais, com seus tios, avós ou parentes mais velhos)",
+                    questions: [{
+                        type: "radiogroup",
+                        name: "optPais",
+                        title: "País",
+                        hasOther: false,
+                        isRequired: true,
+                        colCount: 10,
+                        choices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                    }]
+                }, {
+                    title: "Qual o grau de satisfação da sua COMUNICAÇÃO com seus Filhos, de 0 a 10? (caso não tenha filhos, considerar a sua comunicação com crianças)",
+                    questions: [{
+                        type: "radiogroup",
+                        name: "optFilhos",
+                        title: "Filhos",
+                        hasOther: false,
+                        isRequired: true,
+                        colCount: 10,
+                        choices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                    }]
+                }, {
+                    title: "Qual o grau de satisfação da sua COMUNICAÇÃO com seus Superiores, de 0 a 10? (seja no trabalho, comunidade religiosa ou escola/universidade)",
+                    questions: [{
+                        type: "radiogroup",
+                        name: "optSuperiores",
+                        title: "Superiores",
+                        hasOther: false,
+                        isRequired: true,
+                        colCount: 10,
+                        choices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                    }]
+                }, {
+                    title: "Qual o grau de satisfação da sua COMUNICAÇÃO com seus Inimigos, de 0 a 10?",
+                    questions: [{
+                        type: "radiogroup",
+                        name: "optInimigos",
+                        title: "Inimigos",
+                        hasOther: false,
+                        isRequired: true,
+                        colCount: 10,
+                        choices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                    }]
+                }, {
+                    title: "Qual o grau de satisfação da sua COMUNICAÇÃO com o seu Próximo, de 0 a 10? (considere como próximo as pessoas que te rodeiam no dia a dia, seja alguém no supermercado, na fila do banco, um atendente de telemarketing e etc.)",
+                    questions: [{
+                        type: "radiogroup",
+                        name: "optProximos",
+                        title: "Próximos",
+                        hasOther: false,
+                        isRequired: true,
+                        colCount: 10,
+                        choices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                    }]
+                }, {
+                    title: "Qual o grau de satisfação da sua COMUNICAÇÃO com o Sexo Oposto, de 0 a 10?",
+                    questions: [{
+                        type: "radiogroup",
+                        name: "optSexo",
+                        title: "Sexo Oposto",
+                        hasOther: false,
+                        isRequired: true,
+                        colCount: 10,
+                        choices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                    }]
+                }]
+            };
+
+            window.survey = new Survey.Model(json);
+
+            survey
+                .onComplete
+                .add(function(result) {
+                    Highcharts.chart('container', {
+                        chart: {
+                            type: 'variablepie'
+                        },
+                        title: {
+                            text: 'A Roda da Comunicação Inteligente.'
+                        },
+                        series: [{
+                            minPointSize: 10,
+                            innerSize: '20%',
+                            zMin: 0,
+                            name: '',
+                            data: [{
+                                name: 'Deus',
+                                y: 30,
+                                z: result.data.optDeus
+                            }, {
+                                name: 'Você',
+                                y: 30,
+                                z: result.data.optVoce
+                            }, {
+                                name: 'Pais',
+                                y: 30,
+                                z: result.data.optPais
+                            }, {
+                                name: 'Filhos',
+                                y: 30,
+                                z: result.data.optFilhos
+                            }, {
+                                name: 'Superiores',
+                                y: 30,
+                                z: result.data.optSuperiores
+                            }, {
+                                name: 'Inimigos',
+                                y: 30,
+                                z: result.data.optInimigos
+                            }, {
+                                name: 'Proximos',
+                                y: 30,
+                                z: result.data.optProximos
+                            }, {
+                                name: 'Sexo Oposto',
+                                y: 30,
+                                z: result.data.optSexo
+                            }]
+                        }]
+                    });
+                    document
+                        .querySelector('#surveyResult')
+                        .textContent = "Result JSON:\n" + JSON.stringify(result.data.optDeus, null, 3);
+                    document
+                        .querySelector('#surveyElement').style.display = 'none';
+                    document
+                        .querySelector('#container').style.display = 'block';
+                    document
+                        .querySelector('#ytplayer').style.display = 'block';
+                    document
+                        .querySelector('#spnLink').style.display = 'block';
+
+
+                    // Load the values in the hidden form
+                    document
+                        .querySelector('#InpOptDeus').value = result.data.optDeus;
+                    document
+                        .querySelector('#InpOptVoce').value = result.data.optVoce;
+                    document
+                        .querySelector('#InpOptPais').value = result.data.optPais;
+                    document
+                        .querySelector('#InpOptFilhos').value = result.data.optFilhos;
+                    document
+                        .querySelector('#InpOptSuperiores').value = result.data.optSuperiores;
+                    document
+                        .querySelector('#InpOptInimigos').value = result.data.optInimigos;
+                    document
+                        .querySelector('#InpOptProximos').value = result.data.optProximos;
+                    document
+                        .querySelector('#InpOptSexo').value = result.data.optSexo;
+                });
+            survey.showProgressBar = 'bottom';
+
+            $("#surveyElement").Survey({
+                model: survey
+            });
+
+
+            // Load the IFrame Player API code asynchronously.
+            var tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/player_api";
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            // Replace the 'ytplayer' element with an <iframe> and
+            // YouTube player after the API code downloads.
+            var player1;
+            var player2;
+
+            function onYouTubePlayerAPIReady() {
+                player1 = new YT.Player('ytplayer', {
+                    height: '360',
+                    width: '640',
+                    videoId: '5SjVy64FNKw'
+                });
+                player2 = new YT.Player('sq_100', {
+                    height: '360',
+                    width: '640',
+                    videoId: 'K7kAVFFBnhA'
+                });
+            }
+        </script>
+        <style>
+            #ytplayer {
+                width: 100vw;
+                height: 100vh;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center 10
+            }
+            
+            #container {
+                height: 500px;
+            }
+            
+            .highcharts-figure,
+            .highcharts-data-table table {
+                min-width: 320px;
+                max-width: 700px;
+                margin: 1em auto;
+            }
+            
+            .highcharts-data-table table {
+                font-family: Verdana, sans-serif;
+                border-collapse: collapse;
+                border: 1px solid #EBEBEB;
+                color: fff;
+                margin: 10px auto;
+                text-align: center;
+                width: 100%;
+                max-width: 500px;
+            }
+            
+            .highcharts-data-table caption {
+                padding: 1em 0;
+                font-size: 1.2em;
+                color: #555;
+            }
+            
+            .highcharts-data-table th {
+                font-weight: 600;
+                padding: 0.5em;
+            }
+            
+            .highcharts-data-table td,
+            .highcharts-data-table th,
+            .highcharts-data-table caption {
+                padding: 0.5em;
+            }
+            
+            .highcharts-data-table thead tr,
+            .highcharts-data-table tr:nth-child(even) {
+                background: #f8f8f8;
+            }
+            
+            .highcharts-data-table tr:hover {
+                background: #f1f7ff;
+            }
+            
+            .highcharts-container path {
+                border: 1px solid red !important;
+                fill: orange;
+            }
+            
+            .sv_qstn .sv-q-col-1,
+            .sv-question .sv-q-col-1 {
+                width: auto !important;
+                display: inline-block;
+                padding-right: 1em;
+                box-sizing: border-box;
+                word-break: break-word;
+            }
+            
+            #printLink {
+                font-weight: bold;
+                color: rgb(26, 179, 148) !important;
+                cursor: pointer;
+            }
+            
+            .highcharts-root .highcharts-title {
+                font-weight: bold;
+                color: rgb(26, 179, 148) !important;
+                font-size: 1.875em !important;
+                fill: rgb(26, 179, 148) !important;
+                font-family: "Raleway" !important;
+                font-style: normal !important;
+                font-stretch: normal !important;
+                line-height: normal !important;
+                letter-spacing: normal !important;
+            }
+            
+            #spnLink {
+                display: block;
+                text-align: center;
+                font-size: 0.87em;
+                font-weight: bold;
+                font-family: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+                color: rgb(101 100 100);
+            }
+        </style>
+        <!-- Facebook Pixel Code -->
+        <script>
+            ! function(f, b, e, v, n, t, s) {
+                if (f.fbq) return;
+                n = f.fbq = function() {
+                    n.callMethod ?
+                        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                };
+                if (!f._fbq) f._fbq = n;
+                n.push = n;
+                n.loaded = !0;
+                n.version = '2.0';
+                n.queue = [];
+                t = b.createElement(e);
+                t.async = !0;
+                t.src = v;
+                s = b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t, s)
+            }(window, document, 'script',
+                'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '905459286959449');
+            fbq('track', 'PageView');
+        </script>
+        <noscript><img height="1" width="1" style="display:none"
+         src="https://www.facebook.com/tr?id=905459286959449&ev=PageView&noscript=1"
+         /></noscript>
+
+        <form id="frmSurveyResult" style="display: none;">
+            <input id="InpOptDeus" value="" style="display: none;" />
+            <input id="InpOptVoce" value="" style="display: none;" />
+            <input id="InpOptPais" value="" style="display: none;" />
+            <input id="InpOptFilhos" value="" style="display: none;" />
+            <input id="InpOptSuperiores" value="" style="display: none;" />
+            <input id="InpOptInimigos" value="" style="display: none;" />
+            <input id="InpOptProximos" value="" style="display: none;" />
+            <input id="InpOptSexo" value="" style="display: none;" />
+        </form>
+        <!-- End Facebook Pixel Code -->
+        <!-- /wp:html -->
+</body>
+
+</html>
